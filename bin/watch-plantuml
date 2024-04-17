@@ -1,0 +1,25 @@
+#!/bin/bash
+
+IN_FILE=$1
+
+if [ -z ${2+x} ]
+then
+  OUT_DIR=$PWD
+else
+  OUT_DIR=$2
+fi
+
+echo $OUT_DIR
+
+function generate () {
+    echo "Generating diagram for $IN_FILE"
+  java -jar $HOME/apps/plantuml.jar -o "$OUT_DIR" "$IN_FILE"
+}
+
+generate
+
+echo "Watching for changes to $1"
+
+while inotifywait -q --event create,modify "$IN_FILE"; do {
+    generate
+}; done
