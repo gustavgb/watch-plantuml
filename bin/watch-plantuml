@@ -4,7 +4,7 @@ IN_FILE=$1
 
 if [ -z ${2+x} ]
 then
-  OUT_DIR=$PWD
+  OUT_DIR=$PWD/diagrams
 else
   OUT_DIR=$2
 fi
